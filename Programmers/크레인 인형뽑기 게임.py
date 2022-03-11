@@ -1,12 +1,19 @@
+# 조건 재명시: board의 마지막 인덱스부터 바닥에 쌓인다.
 def solution(board, moves):
     arr = []
-    cnt = 0
-    for i in range (len(moves)):
-        arr.append(board[moves[i]-1].pop())
-    for a in arr:
-        if a==0: arr.remove(a)
+    answer = 0
     
-    for i in range (0, len(arr)-1, 2):
-        if arr[i]==arr[i+1]: cnt+=2
-        
-    return cnt
+    for move in moves:
+        for i in range (len(board)):
+            if board[i][move-1]>0: #idx주의
+                arr.append(board[i][move-1])
+                board[i][move-1]=0
+                
+                if len(arr)>1: #연속된 수의 중복성 체크
+                    if arr[-1]==arr[-2]:
+                        arr.pop(-1)
+                        arr.pop(-1)
+                        answer += 2
+                break
+    
+    return answer
