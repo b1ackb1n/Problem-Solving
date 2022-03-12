@@ -1,20 +1,18 @@
-n = int(input())
+N = int(input())
 arr = list(map(int, input().split()))
+tmp, height = [], []
 
-length=[]
-road=[]
-for i in range (len(arr)-1):
-    if arr[i]+1 < arr[i+1]:
-        road.append(arr[i])
-        if i+1 == len(arr)-1:
-            road.append(arr[i+1])
-            length.append(road[-1]-road[0])
-    elif len(road)!=0 and arr[i]+1>=arr[i+1]:
-        road.append(arr[i])
-        length.append(road[-1]-road[0])
-        road = []
+for i in range(N-1):
+    if arr[i]<arr[i+1]:
+        tmp.append(arr[i])
+        if i==N-2:
+            if arr[N-1]>arr[i]:
+                height.append(arr[N-1]-tmp[0])
 
-if len(length)!=0:
-    print(max(length))
-else:
-    print(0)
+    else:
+        tmp.append(arr[i])
+        num = tmp[-1]-tmp[0]
+        height.append(num)
+        tmp = []
+        
+print(max(height))
